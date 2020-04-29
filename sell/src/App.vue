@@ -1,27 +1,64 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello-world></hello-world>
-  </div>
 
+    <header01 :seller="seller"></header01>
+
+    <div class="tab">
+        <div class="tab-item">
+          <router-link class="tab-item" to="/goods">商品</router-link>
+        </div>
+        <div class="tab-item">
+          <router-link class="tab-item" to="/ratings">评论</router-link>
+        </div>
+        <div class="tab-item">
+          <router-link class="tab-item" to="/seller">商家</router-link>
+        </div>
+    </div>
+
+    <router-view></router-view>
+
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-export default {
-  components: {
-    HelloWorld
-  }
-}
+ import header01 from './components/header01/header01'
+ import './common/stylus/base.styl'
+ import axios from 'axios'
+ export default {
+     components: {
+         'header01': header01
+     },
+     data () {
+        return {
+           seller: {}
+        }
+     },
+     methods: {
+      getHeaderInfo () {
+        axios.get('/api/seller')
+            .then(this.getHeaderInfoSucc)
+      },
+         getHeaderInfoSucc (res) {
+             this.seller = res.data.data
+             console.log(this.seller)
+         }
+     },
+     mounted () {
+        this.getHeaderInfo()
+     }
+ }
+
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus" scoped>
+
+.tab
+  display: flex
+  width: 100%
+  height: 40px
+  line-height: 40px
+  .tab-item
+    flex: 1
+    text-align: center
+
 </style>
