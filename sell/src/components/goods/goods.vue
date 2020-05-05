@@ -1,90 +1,131 @@
 <template>
-  <div>
-    <div class="goods">
-      <div class="menu-wrapper" ref="menuWrapper">
-        <ul>
-          <li v-for="item in goods" class="menu-item"
-
+  <div class="goods">
+    <div class="menu-wrapper" ref="menuWrapper">
+      <ul>
+        <li v-for="(item,index) in goods" class="menu-item"
+            :class="{'current':currentIndex===index}"
+            @click="selectMenu(index, $event)"
+            :key="index"
           >
-            <span class="text border-1px">
-              <span v-show="item.type > 0" class="icon"
-                    :class="classMap[item.type]"></span>{{item.name}}
-            </span>
-          </li>
-        </ul>
-      </div>
-      <div class="foods-wrapper" ref="foodsWrapper">
-        <ul>
-          <li v-for="item in goods" class="food-list food-list-hook">
-            <h1 class="title">{{item.name}}</h1>
-            <ul>
-              <li v-for="food in item.foods" class="food-item border-1px">
-                <div class="icon">
-                  <img width="57" height="57" :src="food.icon">
+          <span class="text border-b-1px">
+              <span v-show="item.type>0" class="icon"
+                :class="classMap[item.type]">
+              </span>{{item.name}}
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="foods-wrapper" ref="foodsWrapper">
+      <ul>
+        <li v-for="item in goods" class="food-list food-list-hook">
+          <h1 class="title">{{item.name}}</h1>
+          <ul>
+            <li v-for="food in item.foods"
+                class="food-item border-b-1px"
+                @click="selectFood(food,$event)">
+              <div class="icon">
+                <img width="57" height="57" :src="food.icon" />
+              </div>
+              <div class="content">
+                <h2 class="name">{{food.name}}</h2>
+                <p class="desc">{{food.description}}</p>
+                <div class="extra">
+                  <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
                 </div>
-                <div class="content">
-                  <h2 class="name">{{food.name}}</h2>
-                  <p class="desc">{{food.description}}</p>
-                  <div class="extra">
-                    <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
-                  </div>
-                  <div class="price">
-                    <span class="now">¥{{food.price}}</span><span class="old" v-if="food.oldPrice">¥{{food.oldPrice}}</span>
-                  </div>
+                <div class="price">
+                  <span class="new">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">{{food.oldPrice}}</span>
                 </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import BScroll from 'better-scroll'
-export default {
-    name: 'goods',
-    props: {
-        seller: Object
-    },
-    data () {
-        return {
-            goods: [],
+    import axios from 'axios'
+    import BScroll from 'better-scroll'
+    export default {
+        name: 'goods',
+        props: {
+            seller: Object
+        },
+        data () {
+            return {
+                goods: [],
+                listHeight: [],
+                scrollY: 0,
+                selectedFood: {}
+            }
+        },
+        created () {
+            this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special']
+        },
+        methods: {
+            getGoodsInfo () {
+                axios.get('/api/goods')
+                    .then(this.getGoodsInfoSucc)
+            },
+            getGoodsInfoSucc (res) {
+                this.goods = res.data.data
+                this.$nextTick(() => {
+                this.initScroll()
+                this.calculateHeight()
+              })
+            },
+            initScroll () {
+                this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+                    click: true //  首先要使点击有效，因为 better-scroll将默认事件都阻止了
+                })
+                this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+                    click: true,
+                    probeType: 3
+                })
 
-        }
-    },
-    created () {
-        this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special']
-    },
-    methods: {
-        getGoodsInfo () {
-            axios.get('/api/goods')
-                .then(this.getGoodsInfoSucc)
+                //  监控scroll事件，获取滚动高度
+                this.foodsScroll.on('scroll', (pos) => {
+                    this.scrollY = Math.abs(Math.round(pos.y))
+                })
+            },
+            calculateHeight () {
+                let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
+                let height = 0
+
+                this.listHeight.push(height)
+                for (let i = 0; i < foodList.length; i++) {
+                    let item = foodList[i]
+                    height += item.clientHeight
+                    this.listHeight.push(height)
+                }
+                // console.log(this.listHeight);
+            },
+            selectMenu (index, event) {
+              if (!event.constructor) {
+                  return
+              }
+                let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
+                let el = foodList[index]
+                this.foodsScroll.scrollToElement(el, 300)
+            }
         },
-        getGoodsInfoSucc (res) {
-            this.goods = res.data.data
-            this.initScroll()
-            console.log(this.goods)
+        computed: {
+            currentIndex () {
+                for (let i = 0; i < this.listHeight.length; i++) {
+                    let height1 = this.listHeight[i]
+                    let height2 = this.listHeight[i + 1]// listHeight[length]返回undefined,所以可以用!height2做判断不是最后一个
+                    if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+                        return i
+                    }
+                }
+                return 0
+            }
         },
-        initScroll () {
-            this.menuScroll = new BScroll(this.$refs.menuWrapper, {
-                click: true
-            })
-            this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
-                probeType: 3 // 1为即时触发，3为延迟到事件完毕后触发
-            })
-            this.foodsScroll.on('scroll', (pos) => {
-                this.scrollY = Math.abs(Math.round(pos.y))
-            })
+        mounted () {
+            this.getGoodsInfo()
         }
-    },
-    mounted () {
-        this.getGoodsInfo()
     }
-
-}
 </script>
 
 <style lang="stylus" scoped>
@@ -106,6 +147,14 @@ export default {
         width: 56px
         padding: 0 12px
         line-height: 14px
+        &.current
+          position: relative
+          z-index: 10
+          margin-top: -1px
+          font-weight: 700
+          background: #fff
+          .text
+            border-1px-none()
         .icon
           display: inline-block
           vertical-align: top
@@ -182,5 +231,4 @@ export default {
               text-decoration: line-through
               font-size: 10
               color: rgb(147,153,159)
-
 </style>
