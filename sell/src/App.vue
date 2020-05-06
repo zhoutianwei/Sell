@@ -16,7 +16,7 @@
     </div>
 
     <keep-alive>
-    <router-view></router-view>
+      <router-view :seller="seller"></router-view>
     </keep-alive>
 
   </div>

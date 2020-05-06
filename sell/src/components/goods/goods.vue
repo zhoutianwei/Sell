@@ -41,12 +41,14 @@
         </li>
       </ul>
     </div>
+    <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
   </div>
 </template>
 
 <script>
     import axios from 'axios'
     import BScroll from 'better-scroll'
+    import shopcart from '../shopcart/shopcart'
     export default {
         name: 'goods',
         props: {
@@ -124,6 +126,9 @@
         },
         mounted () {
             this.getGoodsInfo()
+        },
+        components: {
+            shopcart
         }
     }
 </script>
