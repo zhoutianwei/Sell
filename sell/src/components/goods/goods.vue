@@ -22,7 +22,7 @@
           <ul>
             <li v-for="food in item.foods"
                 class="food-item border-b-1px"
-                @click="selectFood(food,$event)">
+                >
               <div class="icon">
                 <img width="57" height="57" :src="food.icon" />
               </div>
@@ -35,13 +35,16 @@
                 <div class="price">
                   <span class="new">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food = "food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+    <shopcart :select-foods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -49,6 +52,7 @@
     import axios from 'axios'
     import BScroll from 'better-scroll'
     import shopcart from '../shopcart/shopcart'
+    import cartcontrol from '../cartcontrol/cartcontrol'
     export default {
         name: 'goods',
         props: {
@@ -122,13 +126,25 @@
                     }
                 }
                 return 0
+            },
+            selectFoods () {
+                let foods = []
+                this.goods.forEach((good) => {
+                    good.foods.forEach((food) => {
+                        if (food.count) {
+                            foods.push(food)
+                        }
+                    })
+                })
+                return foods
             }
         },
         mounted () {
             this.getGoodsInfo()
         },
         components: {
-            shopcart
+            shopcart,
+            cartcontrol
         }
     }
 </script>
@@ -236,4 +252,9 @@
               text-decoration: line-through
               font-size: 10
               color: rgb(147,153,159)
+          .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 12px
+
 </style>
