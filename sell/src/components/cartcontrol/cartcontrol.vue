@@ -17,17 +17,21 @@
 <script>
 import Vue from 'vue'
 
+const EVENT_ADD = 'addCart'
+
 export default {
+    name: 'cart-control',
     props: {
         food: Object
     },
     methods: {
-        addCart () {
+        addCart (event) {
             if (!this.food.count) {
-              Vue.set(this.food, 'count', 1)
+              this.$set(this.food, 'count', 1)
             } else {
               this.food.count++
             }
+            this.$emit(EVENT_ADD, event.target)
         },
         decreaseCart () {
             if (this.food.count) {
