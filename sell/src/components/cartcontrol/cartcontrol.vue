@@ -3,13 +3,13 @@
       <transition name="move">
       <div class="cart-decrease" v-show="food.count>0">
         <span class="inner">
-           <font-awesome-icon icon="minus-circle" @click="decreaseCart"></font-awesome-icon>
+           <font-awesome-icon icon="minus-circle" @click.stop="decreaseCart"></font-awesome-icon>
         </span>
       </div>
       </transition>
       <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
       <div class="cart-add">
-        <font-awesome-icon icon="plus-circle" @click="addCart"></font-awesome-icon>
+        <font-awesome-icon icon="plus-circle" @click.stop="addCart"></font-awesome-icon>
       </div>
   </div>
 </template>
@@ -17,7 +17,7 @@
 <script>
 import Vue from 'vue'
 
-const EVENT_ADD = 'addCart'
+const EVENT_ADD = 'add'
 
 export default {
     name: 'cart-control',

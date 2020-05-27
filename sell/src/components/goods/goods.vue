@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
@@ -17,14 +18,18 @@
     </div>
     <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
-        <li v-for="item in goods" class="food-list food-list-hook">
+        <li v-for="item in goods"
+            class="food-list food-list-hook"
+            :key="item.key">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods"
+            <li :key="food.key"
+                v-for="food in item.foods"
                 class="food-item border-b-1px"
+                @click="selectFood(food, $event)"
                 >
               <div class="icon">
-                <img width="57" height="57" :src="food.icon" />
+                <img width="57" height="57" :src="food.icon"/>
               </div>
               <div class="content">
                 <h2 class="name">{{food.name}}</h2>
@@ -36,7 +41,7 @@
                   <span class="new">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper" >
-                  <cartcontrol @addCart="onAdd" :food = "food"></cartcontrol>
+                  <cartcontrol @add="onAdd" :food = "food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -47,8 +52,13 @@
     <shopcart ref="shopcart"
               :select-foods="selectFoods"
               :deliveryPrice="seller.deliveryPrice"
-              :minPrice="seller.minPrice"></shopcart>
+              :minPrice="seller.minPrice">
+
+    </shopcart>
   </div>
+    <food :food="selectedFood" ref="food"></food>
+  </div>
+
 </template>
 
 <script>
@@ -56,6 +66,7 @@
     import BScroll from 'better-scroll'
     import shopcart from '../shopcart/shopcart'
     import cartcontrol from '../cartcontrol/cartcontrol'
+    import food from '../food/food'
     export default {
         name: 'goods',
         props: {
@@ -118,8 +129,16 @@
                 let el = foodList[index]
                 this.foodsScroll.scrollToElement(el, 300)
             },
-            onAdd (el) {
-              this.$refs.shopcart.drop(el)
+            // eslint-disable-next-line vue/no-dupe-keys
+            selectFood (food, event) {
+                if (!event._constructed) {
+                    return
+                }
+                this.selectedFood = food
+                this.$refs.food.show()
+            },
+            onAdd (target) {
+                this.$refs.shopcart.drop(target)
             }
         },
         computed: {
@@ -150,7 +169,8 @@
         },
         components: {
             shopcart,
-            cartcontrol
+            cartcontrol,
+            food
         }
 
     }
