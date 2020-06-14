@@ -18,7 +18,10 @@
         </div>
       </div>
       <div v-if="seller.supports" class="supports-count" @click="showDetail">
-          <span class="count">{{seller.supports.length}} 個 <font-awesome-icon icon="angle-right" style="margin-left: 2px; font-size: 10px;"/></span>
+          <span class="count">
+            <span>{{seller.supports.length}}個</span>
+            <font-awesome-icon icon="angle-right" />
+          </span>
       </div>
     </div>
     <div class="bulletin-wrapper" @click="showDetail">
@@ -175,7 +178,6 @@ export default {
         .count
           vertical-align: top
           font-size: 10px
-
     .bulletin-wrapper
       position: relative
       height: 28px

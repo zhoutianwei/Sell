@@ -5,6 +5,8 @@ import Router from 'vue-router'
 import goods from '../components/goods/goods'
 import ratings from '../components/ratings/ratings'
 import seller from '../components/seller/seller'
+import signup from '../components/accounts/signup'
+import login from '../components/accounts/login'
 
 Vue.use(Router)
 
@@ -22,7 +24,15 @@ export default new Router({
       path: '/seller',
       name: seller,
       component: seller
-
+    }, {
+      path: '/accounts/signup',
+      name: signup,
+      component: signup
+    }, {
+      path: '/accounts/login',
+      name: login,
+      component: login
     }
+
   ]
 })

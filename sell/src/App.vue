@@ -1,19 +1,21 @@
 <template>
   <div id="app">
 
-    <header01 :seller="seller"></header01>
+<!--    <div class="account">新規/登録</div>-->
 
-    <div class="tab">
-        <div class="tab-item">
-          <router-link class="tab-item" to="/">商品</router-link>
-        </div>
-        <div class="tab-item">
-          <router-link class="tab-item" to="/ratings">评论</router-link>
-        </div>
-        <div class="tab-item">
-          <router-link class="tab-item" to="/seller">商家</router-link>
-        </div>
-    </div>
+<!--    <header01 :seller="seller"></header01>-->
+
+<!--    <div class="tab">-->
+<!--        <div class="tab-item">-->
+<!--          <router-link class="tab-item" to="/">商品</router-link>-->
+<!--        </div>-->
+<!--        <div class="tab-item">-->
+<!--          <router-link class="tab-item" to="/ratings">评论</router-link>-->
+<!--        </div>-->
+<!--        <div class="tab-item">-->
+<!--          <router-link class="tab-item" to="/seller">商家</router-link>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <keep-alive>
       <router-view :seller="seller"></router-view>
@@ -23,6 +25,7 @@
 </template>
 
 <script>
+ import './common/stylus/icon.styl'
  import header01 from './components/header01/header01'
  import './common/stylus/base.styl'
  import axios from 'axios'
@@ -53,6 +56,13 @@
 </script>
 
 <style lang="stylus" scoped>
+
+/*.account*/
+/*  text-align: right*/
+/*  background: #808080*/
+/*  color: #fff*/
+/*  font-weight: bold*/
+/*  font-size: 14px*/
 
 .tab
   display: flex
