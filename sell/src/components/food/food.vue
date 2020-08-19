@@ -116,7 +116,7 @@ export default {
        },
        addFirst (event) {
            this.$set(this.food, 'count', 1)
-           this.$emit(EVENT_ADD, event.target)
+           // this.$emit(EVENT_ADD, event.target)
        },
        addFood (target) {
            this.$emit(EVENT_ADD, target)
@@ -194,9 +194,10 @@ export default {
       left: 0
       .icon-arrow-left
         display: block
-        padding: 10px
-        font-size: 20px
-        color: #800080
+        font-weight: bold
+        margin-left: 10px
+        font-size: 30px
+        color: #fff
   .content
     padding: 18px
     position: relative

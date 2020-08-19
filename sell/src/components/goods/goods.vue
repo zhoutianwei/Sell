@@ -1,7 +1,19 @@
 <template>
   <div>
 
-    <tab></tab>
+    <div>
+<!--      <router-link to="/">Login</router-link>-->
+<!--      <router-link to="/accounts/signup">Signup</router-link>-->
+
+<!--      <a style="margin-left: 100px;">Hello! {{name}}</a>-->
+
+    </div>
+
+      <keep-alive>
+
+        <tab></tab>
+
+    </keep-alive>
 
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
@@ -55,11 +67,12 @@
     <shopcart ref="shopcart"
               :select-foods="selectFoods"
               :deliveryPrice="seller.deliveryPrice"
-              :minPrice="seller.minPrice">
-
+              :minPrice="seller.minPrice"
+              @add = "onAdd"
+    >
     </shopcart>
   </div>
-    <food :food="selectedFood" ref="food"></food>
+    <food :food="selectedFood" ref="food" @add="onAdd"></food>
   </div>
 
 </template>
@@ -72,18 +85,22 @@
     import tab from '../tab/tab'
     import header01 from '../header01/header01'
     import food from '../food/food'
+    import sussed from '../accounts/sussed'
+    import bubble from '../bubble/bubble'
+
     export default {
         name: 'goods',
         props: {
             seller: Object
         },
         data () {
-            return {
-                goods: [],
-                listHeight: [],
-                scrollY: 0,
-                selectedFood: {}
-            }
+          return {
+              goods: [],
+              listHeight: [],
+              scrollY: 0,
+              selectedFood: {}
+              // name: firebase.auth().currentUser.email
+          }
         },
         created () {
             this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special']
@@ -171,13 +188,22 @@
         },
         mounted () {
             this.getGoodsInfo()
+              // firebase.auth().onAuthStateChanged(function (user) {
+              //   if (user) {
+              //     console.log('login')
+              //   } else {
+              //     console.log('logout')
+              //   }
+              // })
         },
         components: {
             shopcart,
             cartcontrol,
             food,
             tab,
-            header01
+            header01,
+            sussed,
+            bubble
 
         }
 
@@ -189,7 +215,7 @@
   .goods
     display: flex
     position: absolute
-    top: 174px
+    top: 190px
     bottom: 46px
     width:100%
     overflow: hidden

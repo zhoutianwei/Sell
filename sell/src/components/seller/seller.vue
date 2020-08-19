@@ -1,7 +1,9 @@
 <template>
   <div>
 
-    <tab></tab>
+    <keep-alive>
+      <tab></tab>
+    </keep-alive>
 
     <div class="seller" ref="seller">
       <div class="seller-content">

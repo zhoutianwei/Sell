@@ -43,7 +43,7 @@
                   <span>￥{{food.price*food.count}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cart-control  :food="food" v-on:cart-add.stop="_drop"></cart-control>
+                  <cart-control  :food="food" v-on:cart-add.stop="_drop" @add="addFood"></cart-control>
                 </div>
               </li>
             </ul>
@@ -149,6 +149,9 @@
           this.dropBalls = []
         },
         methods: {
+            addFood (target) {
+              this.$emit('add', target)
+            },
             _drop (target) {
                 // 体验优化，异步执行下落动画
                 this.$nextTick(() => {

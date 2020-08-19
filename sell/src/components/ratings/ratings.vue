@@ -1,7 +1,9 @@
 <template>
   <div>
 
+    <keep-alive>
     <tab></tab>
+    </keep-alive>
 
     <div class="ratings" ref="ratings">
       <div class="ratings-content">

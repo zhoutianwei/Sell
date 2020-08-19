@@ -14,6 +14,9 @@
             <P>パスワード</P>
             <p><input type="password" v-model="password"></p>
             <button @click="signUp">登録</button>
+            <p>Do you have an account?
+              <router-link to="/">Login now!</router-link>
+            </p>
           </form>
         </div>
 

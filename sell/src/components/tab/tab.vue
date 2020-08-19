@@ -6,7 +6,7 @@
 
   <div class="tab">
     <div class="tab-item">
-      <router-link class="tab-item" to="/">商品</router-link>
+      <router-link class="tab-item" to="/goods">商品</router-link>
     </div>
     <div class="tab-item">
       <router-link class="tab-item" to="/ratings">评论</router-link>

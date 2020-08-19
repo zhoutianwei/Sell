@@ -1,0 +1,100 @@
+{
+  "ret": true,
+  "data": {
+    "swiperList": [
+      {
+        "id": "0001",
+        "imgUrl": "//imgs.qunarzz.com/vc/24/36/10/3fc94d042ae62de380581d4c98.jpg_92.jpg"
+      },
+      {
+        "id": "0002",
+        "imgUrl": "//imgs.qunarzz.com/vc/6d/9f/35/b8ad5468f73fd60ec0ced086f6.jpg_92.jpg"
+      },
+      {
+        "id": "0003",
+        "imgUrl": "//imgs.qunarzz.com/vc/44/e9/86/95bc36c9e1c06ebd68bdfe222e.jpg_92.jpg"
+      }
+    ],
+    "iconList": [
+      {
+        "id": "0001",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/57864fe0d398139ac2175e7457c63954",
+        "desc": "アジア料理"
+      },
+      {
+        "id": "0002",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/78e3d7f0866e5f17c8350216653b063b",
+        "desc": "日本料理"
+      },
+      {
+        "id": "0003",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/a84dc69cee307fba4f559b1e825d8e9e",
+        "desc": "中華料理"
+      },
+      {
+        "id": "0004",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/9acf7c2098b64401466cb81ca991f7f6",
+        "desc": "韓国料理"
+      },
+      {
+        "id": "0005",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/9a7792417e52d2be9f6550b48e48a4fc",
+        "desc": "タイ料理"
+      },
+      {
+        "id": "0006",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/971d80f9ccce0c8eab98014650ee97eb",
+        "desc": "ピザ"
+      },
+      {
+        "id": "0007",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/128411a1b54acd3c3c4e5263e7c58e2d",
+        "desc": "ハンバーガー"
+      },
+      {
+        "id": "0008",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/15033736a6ed78875085114ee74d4b60",
+        "desc": "タピオカ"
+      },
+      {
+        "id": "0009",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/search_home/Yakitori.jpg",
+        "desc": "焼き鳥"
+      },
+      {
+        "id": "0010",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/998c405357c700f498fc86be08a0b8c2",
+        "desc": "海鮮料理"
+      },
+      {
+        "id": "0011",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/sku/3962b16c350438a56fd7794ba4a15b9c",
+        "desc": "デザート"
+      },
+      {
+        "id": "0012",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/search_home/Pollo.jpg",
+        "desc": "チキン"
+      },
+      {
+        "id": "0013",
+        "imgUrl": "https://duyt4h9nfnj50.cloudfront.net/search_refinements/photos/Pasta.png",
+        "desc": "パスタ"
+      }
+    ],
+    "recommendShop": [
+      {
+        "id": "0001",
+        "imgUrl": "https://lineofficial.blogimg.jp/ja/imgs/e/5/e5996872.png",
+        "title": "マクドナルド",
+        "desc": "................"
+      },
+      {
+        "id": "0002",
+        "imgUrl": "https://lineofficial.blogimg.jp/ja/imgs/e/5/e5996872.png",
+        "title": "マクドナルド",
+        "desc": "................"
+      }
+    ]
+  }
+}
